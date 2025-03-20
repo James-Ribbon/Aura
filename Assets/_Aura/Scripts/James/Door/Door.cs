@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private BoxCollider2D doorCollider;
+
+    [SerializeField] private Animator anim;
+
     [Tooltip("If NO key is required, leave Door ID as -1")]
     [SerializeField] private int doorID = -1;
     
@@ -9,8 +13,13 @@ public class Door : MonoBehaviour
 
     [SerializeField] private bool isLocked = false;
 
+    [SerializeField] private bool oneTime = false;
+
     private void Awake()
     {
+        doorCollider = GetComponentInChildren<BoxCollider2D>();
+        anim = GetComponent<Animator>();
+
         if (doorID != -1)
             isLocked = true;
     }
@@ -28,6 +37,9 @@ public class Door : MonoBehaviour
         if (doorID != -1)
         {
             EventManager.KeyCollected -= OnKeyCollected;
+#if UNITY_EDITOR
+            Debug.Log("Door Disabled");
+#endif
         }
     }
 
@@ -39,9 +51,37 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" && !isLocked)
             Destroy(this.gameObject);
+    }*/
+
+    void ToggleDoor(bool toggle)
+    {
+        this.enabled = toggle;
+        anim.enabled = toggle;
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player" && !isLocked)
+        {
+            doorCollider.enabled = false;
+            anim.SetTrigger("Toggle");
+
+            //if (oneTime)
+                //ToggleDoor(false);
+        }
+        else if(collision.gameObject.tag == "Player" && isLocked)
+        {
+#if UNITY_EDITOR
+            Debug.Log("Deal Player Damage");
+#endif
+        }
+        //else
+            //anim.SetTrigger("Toggle");
+
     }
 }
