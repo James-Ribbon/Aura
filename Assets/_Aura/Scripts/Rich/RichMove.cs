@@ -20,9 +20,9 @@ public class RichMove : MonoBehaviour
 
         rb.velocity = new Vector2(move, rb.velocity.y);
         
-        foreach(Parallax layer in layers)
-        {
-            layer.speed = move;
-        }
+        //foreach(Parallax layer in layers)
+        //{
+        //    layer.speed = move;
+        //}
     }
 }

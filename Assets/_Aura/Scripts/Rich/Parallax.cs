@@ -2,20 +2,30 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-     Material mat;
-    float distance;
+    [SerializeField] private float length;
+    [SerializeField] private float startPos;
 
-    [Range(0f, 1f)]
-    public float speed=2.0f;
-    public float dampen = 0.05f;
-    void Start()
+    public float scrollSpeed = 2f;
+    public float parallaxEffect;
+
+    private Camera mainCamera;
+
+    private void Start()
     {
-        mat = GetComponent<Renderer>().material;
+        mainCamera = Camera.main;
+        startPos = transform.position.x;
+        length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        distance += Time.deltaTime*speed * dampen;
-        mat.SetTextureOffset("_MainTex", Vector2.right * distance);
+        transform.Translate(Vector3.right * scrollSpeed * Time.deltaTime * parallaxEffect);
+
+        Debug.Log($"{gameObject.name}: {transform.position.x} :: {startPos+length}");
+
+        if (transform.position.x > startPos + length)
+        {
+            transform.position = new Vector3(startPos, transform.position.y, transform.position.z);
+        }
     }
 }
