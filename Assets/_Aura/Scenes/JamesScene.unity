@@ -1013,14 +1013,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1588327503}
     m_Modifications:
-    - target: {fileID: 707672533578904871, guid: 26563bd72d86cf5419be8ab1018604a7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 707672533578904871, guid: 26563bd72d86cf5419be8ab1018604a7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1003393261144532089, guid: 26563bd72d86cf5419be8ab1018604a7, type: 3}
       propertyPath: m_Name
       value: PlatformRoot (1)
