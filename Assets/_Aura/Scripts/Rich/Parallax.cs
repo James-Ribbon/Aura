@@ -5,7 +5,7 @@ public class Parallax : MonoBehaviour
      Material mat;
     float distance;
 
-    [Range(0f,0.2f)]
+    [Range(0f, 1f)]
     public float speed=2.0f;
     public float dampen = 0.05f;
     void Start()
