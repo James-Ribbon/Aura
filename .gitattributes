@@ -39,7 +39,6 @@
 *.lighting              unity-yaml
 *.mask                  unity-yaml
 *.mat                   unity-yaml
-*.meta                  unity-yaml
 *.mixer                 unity-yaml
 *.overrideController    unity-yaml
 *.playable              unity-yaml
