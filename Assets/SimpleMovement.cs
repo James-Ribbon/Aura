@@ -2,34 +2,6 @@ using UnityEngine;
 
 public class SimpleMovement : MonoBehaviour
 {
-    /*private Rigidbody2D rig;
-
-    public float strength = 5f;
-
-    private Vector2 moveInput;
-    *//**** input settings ****//*
-    private string vert = "Vertical";
-    private string hor = "Horizontal";
-
-    private void Start()
-    {
-        rig = GetComponent<Rigidbody2D>();
-    }
-
-    private void FixedUpdate()
-    {
-        moveInput.x = Input.GetAxis(hor);
-        moveInput.y = Input.GetAxis(vert);
-
-        Vector2 moveDirection = Vector2.right * moveInput;
-
-        moveDirection *= strength;
-
-        
-        rig.AddForce(moveDirection);
-        
-    }*/
-
     public float moveSpeed = 5f;
     public float runSpeed = 8f;
     public float jumpForce = 10f;
@@ -48,9 +20,7 @@ public class SimpleMovement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             isRunning = true;
         }
@@ -67,9 +37,11 @@ public class SimpleMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Handle horizontal movement
         float moveInput = Input.GetAxis("Horizontal");
         float currentSpeed = isRunning ? runSpeed : moveSpeed;
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
         rb.velocity = new Vector2(moveInput * currentSpeed, rb.velocity.y);
 
         if (moveInput > 0)
