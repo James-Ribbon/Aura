@@ -42,11 +42,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: PlatformLayer
-    uniqueID: 1472322605
-    locked: 0
   - name: Background
     uniqueID: 3061623119
+    locked: 0
+  - name: PlatformLayer
+    uniqueID: 1472322605
     locked: 0
   - name: Player
     uniqueID: 215403871
