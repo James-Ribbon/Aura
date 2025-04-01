@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
-    EnemyType enemyType;
+    public EnemyType enemyType;
 
     [SerializeField] private int _health;
 
-    public void Init()
+    public virtual void Init()
     {
         if(enemyType != null)
         {
