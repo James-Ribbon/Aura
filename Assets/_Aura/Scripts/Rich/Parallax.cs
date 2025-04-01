@@ -8,13 +8,20 @@ public class Parallax : MonoBehaviour
     public float scrollSpeed = 2f;
     public float parallaxEffect;
 
+    public bool isVertical = false;
+
     private Camera mainCamera;
 
     private void Start()
     {
         mainCamera = Camera.main;
         startPos = transform.localPosition;
-        length = GetComponent<SpriteRenderer>().bounds.size.y; //Sprite Renderer doesn't care about local space bounds, if parent is rotated 90 degrees x = y
+
+        if(isVertical)
+            length = GetComponent<SpriteRenderer>().bounds.size.y; //Sprite Renderer doesn't care about local space bounds, if parent is rotated 90 degrees x = y
+        else
+            length = GetComponent<SpriteRenderer>().bounds.size.x;
+
     }
 
     private void FixedUpdate()
