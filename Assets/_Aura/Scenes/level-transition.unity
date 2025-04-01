@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 0
-  startPos: 0
+  startPos: {x: 0, y: 0, z: 0}
   scrollSpeed: 1.6
   parallaxEffect: 0.8
 --- !u!1 &127345269
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 0
-  startPos: 0
+  startPos: {x: 0, y: 0, z: 0}
   scrollSpeed: 1.3
   parallaxEffect: 0.6
 --- !u!1 &185359002
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 0
-  startPos: 0
+  startPos: {x: 0, y: 0, z: 0}
   scrollSpeed: 0.5
   parallaxEffect: 0.1
 --- !u!1 &270438302
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 0
-  startPos: 0
+  startPos: {x: 0, y: 0, z: 0}
   scrollSpeed: 0.8
   parallaxEffect: 0.25
 --- !u!1 &930430448
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 0
-  startPos: 0
+  startPos: {x: 0, y: 0, z: 0}
   scrollSpeed: 2
   parallaxEffect: 0
 --- !u!23 &1196199138

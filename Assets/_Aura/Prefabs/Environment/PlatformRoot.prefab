@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 420791173929985816}
   - component: {fileID: 7071742617752119133}
   m_Layer: 7
-  m_Name: Mossy - FloatingPlatforms_2
+  m_Name: FloatingPlatform
   m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ SpriteRenderer:
   m_SortingLayerID: 1472322605
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 765859117, guid: 78f3737dab50ed14fa63ed09ae8cfddc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3d5649aaac06334ab6e7d9447a4cfc5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,16 +216,16 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 1.3203125, y: 0.50390625, z: 1.34375, w: 0.48632812}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.9785156, y: 0.8515625}
+    oldSize: {x: 3, y: 1}
     newSize: {x: 1.9785156, y: 0.8515625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9785156, y: 0.8515625}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &420791173929985816
 Rigidbody2D:

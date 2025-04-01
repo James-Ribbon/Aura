@@ -3,7 +3,7 @@ using UnityEngine;
 public class Parallax : MonoBehaviour
 {
     [SerializeField] private float length;
-    [SerializeField] private float startPos;
+    [SerializeField] private Vector3 startPos;
 
     public float scrollSpeed = 2f;
     public float parallaxEffect;
@@ -13,19 +13,17 @@ public class Parallax : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        startPos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        startPos = transform.localPosition;
+        length = GetComponent<SpriteRenderer>().bounds.size.y; //Sprite Renderer doesn't care about local space bounds, if parent is rotated 90 degrees x = y
     }
 
     private void FixedUpdate()
     {
         transform.Translate(Vector3.right * scrollSpeed * Time.deltaTime * parallaxEffect);
 
-        Debug.Log($"{gameObject.name}: {transform.position.x} :: {startPos+length}");
-
-        if (transform.position.x > startPos + length)
+        if (transform.localPosition.x > startPos.x + length)
         {
-            transform.position = new Vector3(startPos, transform.position.y, transform.position.z);
+            transform.localPosition = new Vector3(startPos.x, startPos.y, startPos.z);
         }
     }
 }
