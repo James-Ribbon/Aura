@@ -12,9 +12,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - PostProcessing
   - Ground
-  - 
+  - Foreground
   - 
   - 
   - 
@@ -42,15 +42,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: PlatformLayer
-    uniqueID: 1472322605
-    locked: 0
   - name: Background
     uniqueID: 3061623119
+    locked: 0
+  - name: PlatformLayer
+    uniqueID: 1472322605
     locked: 0
   - name: Player
     uniqueID: 215403871
     locked: 0
-  - name: Enemy
-    uniqueID: 3344783493
+  - name: Overlay
+    uniqueID: 1023419491
     locked: 0
