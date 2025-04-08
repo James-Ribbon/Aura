@@ -21,6 +21,14 @@ public class Floater : Enemy
     [Range(0.1f, 0.9f)]
     public float smoothFactor = 0.5f;
 
+    [Header("Animation Settings")]
+    [SerializeField] private GameObject spriteObject;
+    private Animator anim;
+    public float rotationSpeed = 60f;
+    public float scaleFrequency = 4f;
+    public float scaleAmplitude = 0.025f;
+    private Vector3 originalSpriteScale;
+
     [SerializeField] private GameObject target;
     private Vector2 currentTargetPosition;
     private float timeSinceLastChange;
@@ -41,6 +49,8 @@ public class Floater : Enemy
 
     void Start()
     {
+        originalSpriteScale = spriteObject.transform.localScale;
+        anim = spriteObject.GetComponent<Animator>();
         currentState = EnemyState.Idle;
 
         if (originPoint == null)
@@ -69,12 +79,26 @@ public class Floater : Enemy
 
         transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
 
+        FloaterAnimations();
+    }
+
+    private void FloaterAnimations()
+    {
+        spriteObject.transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+
+        float oscillation = Mathf.Sin(Time.time * scaleFrequency) * scaleAmplitude;
+
+        float currentScale = 1 + oscillation;
+
+        spriteObject.transform.localScale = originalSpriteScale * currentScale;
     }
 
     #region Idle Mechanics
     protected override void IdleState()
     {
         base.IdleState();
+
+        anim.SetTrigger("Idle");
 
         timeSinceLastChange += Time.deltaTime;
 
@@ -98,6 +122,8 @@ public class Floater : Enemy
     {
         base.ChasingState();
 
+        anim.SetTrigger("Chase");
+
         currentTargetPosition = target.transform.position;
 
         if (!playerSighted)
@@ -119,6 +145,8 @@ public class Floater : Enemy
     {
         if (collision.transform.tag == "Player")
         {
+            anim.SetTrigger("Attack");
+
 #if UNITY_EDITOR
             Debug.Log("BLUHHHHH");
 #endif
