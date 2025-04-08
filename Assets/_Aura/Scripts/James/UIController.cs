@@ -4,12 +4,12 @@ public class UIController : MonoBehaviour
 {
     private void OnEnable()
     {
-        EventManager.SoulCollected += EventManagerOnSoulCollected;
+        EventManager.SoulCoreCollected += EventManagerOnSoulCollected;
     }
 
     private void OnDisable()
     {
-        EventManager.SoulCollected -= EventManagerOnSoulCollected;
+        EventManager.SoulCoreCollected -= EventManagerOnSoulCollected;
     }
 
     private void EventManagerOnSoulCollected()

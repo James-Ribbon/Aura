@@ -1,16 +1,65 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
-    EnemyType enemyType;
+    public EnemyType enemyType;
 
     [SerializeField] private int _health;
 
-    public void Init()
+    [SerializeField] protected EnemyState currentState;
+
+    protected virtual void Init()
     {
         if(enemyType != null)
         {
             _health = enemyType.enemyHealth;
         }
+    }    
+
+    protected virtual void Update()
+    {
+        switch (currentState) 
+        {
+            case EnemyState.Idle:
+
+                IdleState();
+
+                break;
+
+            case EnemyState.Chasing:
+
+                ChasingState();
+
+                break;
+
+            case EnemyState.Attacking:
+
+                AttackingState();
+
+                break;
+        }
     }
+
+    protected virtual void IdleState()
+    {
+
+    }
+
+    protected virtual void ChasingState()
+    {
+
+    }
+
+    protected virtual void AttackingState() 
+    {
+    
+    }
+}
+
+public enum EnemyState
+{
+    Idle,
+    Chasing,
+    Attacking
 }

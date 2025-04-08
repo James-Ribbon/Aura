@@ -32,6 +32,8 @@ public class SimpleMovement : MonoBehaviour
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
+            DialogueManager.Instance.ShowDialogue(transform, "Jumping!", 2f);
         }
     }
 
