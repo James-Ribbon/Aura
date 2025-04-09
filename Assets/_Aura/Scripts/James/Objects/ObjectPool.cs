@@ -22,7 +22,7 @@ public class ObjectPool : MonoBehaviour
 
         for (int i = 0; i < amountToPool; i++)
         {
-            obj = Instantiate(objectToPool);
+            obj = Instantiate(objectToPool, transform);
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
