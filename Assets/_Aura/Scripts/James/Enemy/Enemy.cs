@@ -38,6 +38,11 @@ public abstract class Enemy : MonoBehaviour
                 AttackingState();
 
                 break;
+            case EnemyState.Friendly:
+
+                FriendlyState();
+
+                break;
         }
     }
 
@@ -55,11 +60,17 @@ public abstract class Enemy : MonoBehaviour
     {
     
     }
+
+    protected virtual void FriendlyState()
+    {
+
+    }
 }
 
 public enum EnemyState
 {
     Idle,
     Chasing,
-    Attacking
+    Attacking,
+    Friendly
 }
