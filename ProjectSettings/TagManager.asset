@@ -48,7 +48,7 @@ TagManager:
   - name: PlatformLayer
     uniqueID: 1472322605
     locked: 0
-  - name: Player
+  - name: Entity
     uniqueID: 215403871
     locked: 0
   - name: Overlay

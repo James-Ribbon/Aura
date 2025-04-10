@@ -18,8 +18,6 @@ public class DialogueManager : MonoBehaviour
 
     [Space(10)]
 
-    //[SerializeField] private GameObject dialogueBoxPrefab;
-
     private GameObject dialogueBox;
     private Transform currentTarget;
 
@@ -57,18 +55,7 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue(Transform target, string message, float dialogueDuration)
     {
-         /*dialogueBox = dialogueBoxPool.GetPooledObject();
-
-        if (dialogueBox != null)
-        {
-            currentTarget = target;
-            TMP_Text textComponent = dialogueBox.GetComponentInChildren<TMP_Text>();
-            textComponent.text = message;
-            dialogueBox.SetActive(true);
-        }*/
          StartCoroutine(ShowDialogueCoroutine(target, message, dialogueDuration));
-        //GameObject dialogueBox = Instantiate(dialogueBoxPrefab, worldCanvas.transform);
-        //dialogueBox.GetComponent<DialogueBox>().Show(message, textSpeed, dialogueDuration);
     }
 
     public void HideDialogue()
@@ -83,8 +70,10 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator ShowDialogueCoroutine(Transform target, string message, float dialogueDuration)
     {
+        HideDialogue();
+
         dialogueBox = dialogueBoxPool.GetPooledObject();
-        dialogueBox.transform.SetParent(worldCanvas.transform, false);
+        //dialogueBox.transform.SetParent(worldCanvas.transform, false);
 
         if (dialogueBox != null)
         {
