@@ -4,31 +4,34 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    //public static ObjectPool SharedInstance;
-    public List<GameObject> pooledObjects;
-    public GameObject objectToPool;
-    public int amountToPool;
+    [SerializeField] protected List<GameObject> pooledObjects;
+    [SerializeField] protected GameObject objectToPool;
+    [SerializeField] protected int amountToPool;
 
-    /*private void Awake()
+    protected virtual void Start()
     {
-        SharedInstance = this;
-    }*/
+        InitializePool();
+    }
 
-    private void Start()
+    protected virtual void InitializePool()
     {
         pooledObjects = new List<GameObject>();
 
-        GameObject obj;
-
         for (int i = 0; i < amountToPool; i++)
         {
-            obj = Instantiate(objectToPool, transform);
-            obj.SetActive(false);
-            pooledObjects.Add(obj);
+            CreatePooledObject();
         }
     }
 
-    public GameObject GetPooledObject()
+    protected virtual GameObject CreatePooledObject()
+    {
+        GameObject obj = Instantiate(objectToPool, transform);
+        obj.SetActive(false);
+        pooledObjects.Add(obj);
+        return obj;
+    }
+
+    public virtual GameObject GetPooledObject()
     {
         for (int i = 0; i < amountToPool; i++)
         {
@@ -40,4 +43,8 @@ public class ObjectPool : MonoBehaviour
         return null;
     }
 
+    public virtual void ReturnToPool(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
 }
