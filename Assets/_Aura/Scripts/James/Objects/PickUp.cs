@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance.VisualScripting;
 
 public class PickUp : MonoBehaviour
 {
@@ -54,13 +52,19 @@ public class PickUp : MonoBehaviour
 
                 EventManager.OnSoulCoreCollected();
 
-                Destroy(gameObject);
+                //Destroy(gameObject);
                 
                 break;
 
             case PickUpType.Key:
 
                 EventManager.OnKeyCollected(itemID);
+
+                break;
+
+            case PickUpType.RecallOrb:
+
+                EventManager.OnRecallOrbCollected();
 
                 break;
         }
@@ -72,5 +76,6 @@ public class PickUp : MonoBehaviour
 public enum PickUpType
 {
     SoulCore,
-    Key
+    Key,
+    RecallOrb
 }

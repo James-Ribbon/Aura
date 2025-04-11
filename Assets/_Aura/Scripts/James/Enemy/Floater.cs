@@ -17,9 +17,15 @@ public class Floater : Enemy
     [Tooltip("How often to pick a new position (in seconds)")]
     public float changePositionInterval = 2f;
 
+    public CircleCollider2D[] circleColliders;
+
     [Header("Movement Smoothing")]
     [Range(0.1f, 0.9f)]
     public float smoothFactor = 0.5f;
+
+    [Header("Friendly Mob")]
+    public bool isFriendly;
+    [SerializeField] private bool isAttached;
 
     [Header("Animation Settings")]
     [SerializeField] private GameObject spriteObject;
@@ -49,6 +55,8 @@ public class Floater : Enemy
 
     void Start()
     {
+        //circleColliders[0] = GetComponent<CircleCollider2D>();
+
         originalSpriteScale = spriteObject.transform.localScale;
         anim = spriteObject.GetComponent<Animator>();
         currentState = EnemyState.Idle;
@@ -66,18 +74,21 @@ public class Floater : Enemy
     {
         base.Update();
 
-        currentPosition = transform.position;
+        //if (!isAttached)
+        //{
+            currentPosition = transform.position;
 
-        //Move towards the target position
-        newPosition = Vector2.SmoothDamp(
-            currentPosition,
-            currentTargetPosition,
-            ref velocity,
-            smoothFactor,
-            moveSpeed
-        );
+            //Move towards the target position
+            newPosition = Vector2.SmoothDamp(
+                currentPosition,
+                currentTargetPosition,
+                ref velocity,
+                smoothFactor,
+                moveSpeed
+            );
 
-        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        //}
 
         FloaterAnimations();
     }
@@ -140,16 +151,42 @@ public class Floater : Enemy
         }
     }
 
+    protected override void FriendlyState()
+    {
+        base.FriendlyState();
+        
+        currentTargetPosition = target.transform.position;
+        transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+
+
+    }
+
     #endregion
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Player")
+        if (collision.transform.tag == "Player" && !isFriendly)
         {
             anim.SetTrigger("Attack");
 
 #if UNITY_EDITOR
             Debug.Log("BLUHHHHH");
 #endif
+        }
+        
+        if (collision.transform.tag == "Player" && isFriendly)
+        {
+            target = collision.transform.GetComponent<PlayerController>().friendHolder.gameObject;
+            
+            isAttached = true;
+
+            foreach(var col in circleColliders)
+            {
+                col.enabled = false;
+            }
+
+            moveSpeed = 5f;
+
+            currentState = EnemyState.Friendly;
         }
     }
 
