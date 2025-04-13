@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MovingPlatform
   - Enemy
+  - Amyloid
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Foreground
   - Player
   - Enemy
-  - 
+  - Amyloid
   - 
   - 
   - 

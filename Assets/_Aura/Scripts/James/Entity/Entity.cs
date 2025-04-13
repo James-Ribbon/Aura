@@ -20,8 +20,13 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Awake()
     {
         movement = GetComponent<EntityMovement>();
-        anim = spriteObject.GetComponent<Animator>();
-        originalSpriteScale = spriteObject.transform.localScale;
+
+        if (spriteObject != null)
+        {
+            anim = spriteObject.GetComponent<Animator>();
+            originalSpriteScale = spriteObject.transform.localScale;
+        }
+        
 
         if (originPoint == null)
         {
