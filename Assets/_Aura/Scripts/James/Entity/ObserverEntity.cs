@@ -9,6 +9,9 @@ public class ObserverEntity : Entity
     private bool playerSighted;
     private float timePlayerIsUnseen = 0;
 
+    [SerializeField] private bool canAttack = true;
+    [SerializeField] private float timeSinceLastAttack = 0;
+
     protected override void Awake()
     {
         base.Awake();
@@ -24,6 +27,17 @@ public class ObserverEntity : Entity
         else
         {
             Chase();
+        }
+
+        if (!canAttack)
+        {
+            timeSinceLastAttack += Time.deltaTime;
+
+            if (timeSinceLastAttack >= 2f)
+            {
+                canAttack = true;
+                timeSinceLastAttack = 0;
+            }
         }
 
         UpdateAnimation();
@@ -71,11 +85,16 @@ public class ObserverEntity : Entity
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.tag == "Player")
         {
-            anim.SetTrigger("Attack");
+            if(canAttack)
+            {                
+                anim.SetTrigger("Attack");
+                collision.gameObject.GetComponent<EntityHealth>().TakeDamage(10f);
+                canAttack = false;                
+            }            
         }
     }
 }

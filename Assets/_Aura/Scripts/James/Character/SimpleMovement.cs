@@ -18,11 +18,13 @@ public class SimpleMovement : MonoBehaviour
     private Vector3 defaultScale;
     [SerializeField] private Vector2 currentVelocity;
 
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator anim;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
         defaultScale = transform.localScale;
     }
 
@@ -63,10 +65,12 @@ public class SimpleMovement : MonoBehaviour
         if (moveInput > 0)
         {
             transform.localScale = defaultScale;
+            //spriteRenderer.flipX = false;
         }
         else if (moveInput < 0)
         {
             transform.localScale = new Vector3(-defaultScale.x, defaultScale.y, defaultScale.z);
+            //spriteRenderer.flipX = true;
         }
 
         anim.SetFloat("xVelocity", rb.velocity.x);
