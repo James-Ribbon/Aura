@@ -10,6 +10,8 @@ public class SimpleMovement : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
+    public bool isFacingRight;
+
 
     private Rigidbody2D rb;
     [SerializeField] private bool isGrounded;
@@ -21,11 +23,19 @@ public class SimpleMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator anim;
 
+    //Remove this in future and set up player controller correctly 
+    [SerializeField] private CameraFollow cameraFollow;
+
+    private void Awake()
+    {
+        isFacingRight = true;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         
-        defaultScale = transform.localScale;
+        defaultScale = transform.localScale;        
     }
 
     void Update()
@@ -62,14 +72,18 @@ public class SimpleMovement : MonoBehaviour
 
         rb.velocity = new Vector2(moveInput * currentSpeed, rb.velocity.y);
 
-        if (moveInput > 0)
+        if (moveInput > 0 && !isFacingRight)
         {
             transform.localScale = defaultScale;
+            isFacingRight = true;
+            cameraFollow.PlayerTurn();
             //spriteRenderer.flipX = false;
         }
-        else if (moveInput < 0)
+        else if (moveInput < 0 && isFacingRight)
         {
             transform.localScale = new Vector3(-defaultScale.x, defaultScale.y, defaultScale.z);
+            isFacingRight = false;
+            cameraFollow.PlayerTurn();
             //spriteRenderer.flipX = true;
         }
 
