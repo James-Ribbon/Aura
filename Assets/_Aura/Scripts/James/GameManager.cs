@@ -44,6 +44,12 @@ public class GameManager : MonoBehaviour
     void UpdateNumberOfRecallOrbs()
     {
         currentRecallOrbs += 1;
+        UIController.instance.UpdateNumberOfRecallOrbs(currentRecallOrbs);
+    }
+
+    public int GetRecallOrbs()
+    {
+        return currentRecallOrbs;
     }
 
     private void OnDisable()
