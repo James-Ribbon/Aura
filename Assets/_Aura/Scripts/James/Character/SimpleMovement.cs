@@ -26,6 +26,19 @@ public class SimpleMovement : MonoBehaviour
     //Remove this in future and set up player controller correctly 
     [SerializeField] private CameraFollow cameraFollow;
 
+    [Header("Wall Jump")]
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private float wallCheckDistance = 0.5f;
+    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float wallJumpForce = 10f;
+    [SerializeField] private float wallJumpHorizontalForce = 5f;
+    [SerializeField] private float wallJumpTime = 0.01f;
+
+    [SerializeField] private bool isTouchingWall;
+    [SerializeField] private bool isWallSliding;
+    [SerializeField] private bool canWallJump;
+    [SerializeField] private float wallJumpDirection;
+
     private void Awake()
     {
         isFacingRight = true;
@@ -49,11 +62,38 @@ public class SimpleMovement : MonoBehaviour
             isRunning = false;
         }
 
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        isTouchingWall = Physics2D.Raycast(wallCheck.position, 
+                            Vector2.right * transform.localScale.x,
+                             wallCheckDistance, wallLayer);
+
+        isWallSliding = isTouchingWall && !isGrounded && rb.velocity.y < 0;
+
+        if (isWallSliding)
         {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -2f, float.MaxValue));
+            canWallJump = true;
+        }
+        else
+        {
+            canWallJump = false;
+        }
+
+        if ((isGrounded || canWallJump) && Input.GetButtonDown("Jump"))
+        {
+            if(isGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
+            }
+            else if (isTouchingWall)
+            {
+                WallJump();
+                //WallJump();
+            }
+
             anim.SetTrigger("JumpTrigger");
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             //DialogueManager.Instance.ShowDialogue(transform, "Jumping!", 2f);
+            
         }
 
         anim.SetBool("isJumping", !isGrounded);
@@ -92,12 +132,53 @@ public class SimpleMovement : MonoBehaviour
 
     }
 
+    private void WallJump()
+    {
+        canWallJump = false;
+        wallJumpDirection = -transform.localScale.x; // Jump away from the wall
+        cameraFollow.PlayerTurn();
+        isFacingRight = !isFacingRight;
+        // Apply forces
+        rb.velocity = new Vector2(wallJumpDirection * wallJumpHorizontalForce, wallJumpForce);
+
+        // Optional: Flip the character direction
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+        // Prevent immediate re-walljump
+        StartCoroutine(ResetWallJump());
+    }
+
+    private IEnumerator ResetWallJump()
+    {
+        yield return new WaitForSeconds(wallJumpTime);
+        canWallJump = true;
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(groundCheck.position,
+                            groundCheck.position + Vector3.down * groundCheckRadius);
+        }
+
+        // Draw wall check line (horizontal)
+        if (wallCheck != null)
+        {
+            Gizmos.color = isTouchingWall ? Color.red : Color.blue;
+            Vector3 direction = Vector3.right * transform.localScale.x;
+            Gizmos.DrawLine(wallCheck.position,
+                           wallCheck.position + direction * wallCheckDistance);
         }
     }
 }

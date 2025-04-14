@@ -15,4 +15,4 @@ EditorBuildSettings:
     path: Assets/SceneTransition/End.unity
     guid: fe04031df5acf46338237277e5e47df0
   m_configObjects:
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: c09766d75f9c246578aadb6ac8144c65, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 375982083f8bc7049a575e230150afaf, type: 2}
