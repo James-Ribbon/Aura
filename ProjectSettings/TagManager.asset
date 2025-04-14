@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - MovingPlatform
+  - Enemy
+  - Amyloid
   layers:
   - Default
   - TransparentFX
@@ -15,9 +17,9 @@ TagManager:
   - PostProcessing
   - Ground
   - Foreground
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Amyloid
   - 
   - 
   - 
